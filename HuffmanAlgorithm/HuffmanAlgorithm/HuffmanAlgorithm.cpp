@@ -63,6 +63,7 @@ namespace variant
 			//	std::cout << it->first << ":" << it->second << "\n";
 			//}
 
+			
 			std::list<NodeCountChar*> huffmanTree;
 
 			for (auto it = countChar.begin(); it != countChar.end(); ++it)
@@ -91,7 +92,8 @@ namespace variant
 				huffmanTree.push_back(newNodeCountChar);
 			}
 
-			makeTable(huffmanTree.front());
+			root = huffmanTree.front();
+			makeTable(root);
 
 			std::string huffmanStr = "";
 
@@ -197,4 +199,52 @@ namespace variant
 			fPack.close();
 			return 1;
 		}
+
+
+		int HuffmanAlgorithm::unpackHuffmanAlgorithmFile(std::string fileName)
+		{
+
+			std::ifstream f(fileName);
+
+			if (f.fail())
+			{
+				return 0;
+			}
+
+
+			NodeCountChar *node = root; //root
+			int count(0);
+			char byte;
+			f >> byte;
+
+			while (f.eof())
+			{
+				bool bit = byte & (1 << (7 - count)); // check 0 or 1
+				if (bit)
+				{
+					node = node->right;
+				}
+				else
+				{
+					node = node->left;
+				}
+
+				if (node->symbol)
+				{
+					node = root;
+				}
+
+				count++;
+				if (count == 8)
+				{
+					count = 0;
+					f >> byte;
+				}
+			}
+
+			f.close();
+			return 1;
+		}
+
+
 }

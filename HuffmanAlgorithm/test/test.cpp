@@ -18,7 +18,8 @@ int main()
 	//std::cout << huffmanAlgorithm->packHuffmanAlgorithm(str) << "\n\n";
 	//std::cout << huffmanAlgorithm->packHuffmanAlgorithm("gregregrewqrewr43243423ffwrt f");
 
-	huffmanAlgorithm->packHuffmanAlgorithmFile("ReadMe.txt");
+	huffmanAlgorithm->packHuffmanAlgorithmFile("HuffmanAlgorithm1.log");
+	//huffmanAlgorithm->unpackHuffmanAlgorithmFile("pack.bin");
 
 	delete huffmanAlgorithm;
 	std::cin >> str;

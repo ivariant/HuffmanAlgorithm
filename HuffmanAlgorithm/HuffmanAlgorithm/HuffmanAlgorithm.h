@@ -11,7 +11,7 @@ namespace variant
 		std::string packHuffmanAlgorithm(std::string str);
 		std::map<char, std::vector<bool> > getTable();
 		int packHuffmanAlgorithmFile(std::string fileName);
-
+		int unpackHuffmanAlgorithmFile(std::string fileName);
 	private:
 
 		std::vector<bool> huffmanCode;
@@ -49,6 +49,8 @@ namespace variant
 			}
 		};
 
+		
+		NodeCountChar* root;
 
 		void makeTable(NodeCountChar* root);
 	};
