@@ -116,5 +116,85 @@ namespace variant
 		}
 
 	
+		int HuffmanAlgorithm::packHuffmanAlgorithmFile(std::string fileName)
+		{
+			
+			std::ifstream f(fileName);
 
+			if (f.fail())
+			{
+				return 0;
+			}
+
+			std::map<char, int> countChar;
+
+			while (!f.eof())
+			{
+				char c;
+				f >> c;
+				countChar[c]++;
+			}
+
+			std::list<NodeCountChar*> huffmanTree;
+
+			for (auto it = countChar.begin(); it != countChar.end(); ++it)
+			{
+				NodeCountChar* nodeCountChar = new NodeCountChar();
+				nodeCountChar->symbol = it->first;
+				nodeCountChar->count = it->second;
+
+				nodeCountChar->left = nodeCountChar->right = nullptr;
+
+				huffmanTree.push_back(nodeCountChar);
+			}
+
+
+			while (huffmanTree.size() != 1)
+			{
+				huffmanTree.sort(iCompare());
+
+				NodeCountChar* leftNodeCountChar = huffmanTree.front();
+				huffmanTree.pop_front();
+
+				NodeCountChar* rightNodeCountChar = huffmanTree.front();
+				huffmanTree.pop_front();
+
+				NodeCountChar* newNodeCountChar = new NodeCountChar(leftNodeCountChar, rightNodeCountChar);
+				huffmanTree.push_back(newNodeCountChar);
+			}
+
+			makeTable(huffmanTree.front());
+
+			f.clear(); //Указатель в начало
+			f.seekg(0);
+
+			std::ofstream fPack("pack.bin");
+			int count = 0;
+			char buf = 0;
+
+			while (!f.eof())
+			{
+				char charFile;
+				f >> charFile; //Побитово
+
+				std::vector<bool> huffmanCode = huffmanTable[charFile];
+
+				for (int n(0); n < huffmanCode.size(); n++)
+				{
+					buf = buf | huffmanCode[n] << (7 - count);
+					count++;
+					if (count == 8)
+					{
+						fPack << buf; // Ложу байт
+						count = 0;
+						buf = 0;
+					}
+				}
+			
+			}
+
+			f.close();
+			fPack.close();
+			return 1;
+		}
 }

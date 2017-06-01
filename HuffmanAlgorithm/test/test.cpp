@@ -15,8 +15,12 @@ int main()
 
 	variant::HuffmanAlgorithm* huffmanAlgorithm = new variant::HuffmanAlgorithm();
 
-	std::cout << huffmanAlgorithm->packHuffmanAlgorithm(str);
+	//std::cout << huffmanAlgorithm->packHuffmanAlgorithm(str) << "\n\n";
+	//std::cout << huffmanAlgorithm->packHuffmanAlgorithm("gregregrewqrewr43243423ffwrt f");
 
+	huffmanAlgorithm->packHuffmanAlgorithmFile("ReadMe.txt");
+
+	delete huffmanAlgorithm;
 	std::cin >> str;
     return 0;
 }

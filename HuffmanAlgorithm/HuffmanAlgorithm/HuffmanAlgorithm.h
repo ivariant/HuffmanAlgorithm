@@ -10,6 +10,7 @@ namespace variant
 
 		std::string packHuffmanAlgorithm(std::string str);
 		std::map<char, std::vector<bool> > getTable();
+		int packHuffmanAlgorithmFile(std::string fileName);
 
 	private:
 
